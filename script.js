@@ -11,6 +11,12 @@ eventListener();
 function eventListener() {
     //submit event
     form.addEventListener('submit', addNewItem);
+
+    // delete an item
+    taskList.addEventListener('click', deleteItem);
+
+    // delete all items
+    btnDeleteAll.addEventListener('click', deletAllItems);
 }
 
 // add new item
@@ -41,5 +47,29 @@ function addNewItem(event) {
         input.value = '';
     }
     event.preventDefault();
+}
 
+//delete an item
+function deleteItem(event) {
+    if (confirm('Silmek İstediğinize Emin misiniz?')) {
+        if (event.target.className === 'fas fa-times') {
+            event.target.parentElement.parentElement.remove();
+        }
+    }
+    event.preventDefault();
+}
+
+// delete all items
+function deletAllItems(event) {
+
+    // all delete different way
+    //taskList.innerHTML = '';
+
+    if (confirm('Silmek İstediğinize Emin misiniz?')) {
+        while (taskList.firstChild) {
+            taskList.removeChild(taskList.firstChild);
+        }
+    }
+
+    event.preventDefault();
 }
