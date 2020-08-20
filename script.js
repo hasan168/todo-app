@@ -4,6 +4,10 @@ const form = document.querySelector('form');
 const input = document.querySelector('#txtTaskName');
 const btnDeleteAll = document.querySelector('#btnDeleteAll');
 const taskList = document.querySelector('#task-list');
+const items = ['item 1', 'item 2', 'item 3'];// test data
+
+// load items
+loadItems();
 
 // call event listeners
 eventListener();
@@ -19,6 +23,31 @@ function eventListener() {
     btnDeleteAll.addEventListener('click', deletAllItems);
 }
 
+function loadItems() {
+    items.forEach(function (item) {
+        createItem(item);
+    });
+}
+
+function createItem(text) {
+    //create li
+    const li = document.createElement('li');
+    li.className = 'list-group-item list-group-item-secondary';
+    li.appendChild(document.createTextNode(text));
+
+    // create a
+    const a = document.createElement('a');
+    a.classList = 'delete-item float-right';
+    a.setAttribute('href', '#');
+    a.innerHTML = '<i class="fas fa-times"></i>';
+
+    // add a to li
+    li.appendChild(a);
+
+    // add li to ul
+    taskList.appendChild(li);
+}
+
 // add new item
 function addNewItem(event) {
 
@@ -26,22 +55,8 @@ function addNewItem(event) {
         alert('Bir iş yazınız');
     } else {
 
-        //create li
-        const li = document.createElement('li');
-        li.className = 'list-group-item list-group-item-secondary';
-        li.appendChild(document.createTextNode(input.value));
-
-        // create a
-        const a = document.createElement('a');
-        a.classList = 'delete-item float-right';
-        a.setAttribute('href', '#');
-        a.innerHTML = '<i class="fas fa-times"></i>';
-
-        // add a to li
-        li.appendChild(a);
-
-        // add li to ul
-        taskList.appendChild(li);
+        // create item
+        createItem(input.value);
 
         // clear input
         input.value = '';
@@ -51,8 +66,8 @@ function addNewItem(event) {
 
 //delete an item
 function deleteItem(event) {
-    if (confirm('Silmek İstediğinize Emin misiniz?')) {
-        if (event.target.className === 'fas fa-times') {
+    if (event.target.className === 'fas fa-times') {
+        if (confirm('Silmek İstediğinize Emin misiniz?')) {
             event.target.parentElement.parentElement.remove();
         }
     }
