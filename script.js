@@ -80,15 +80,16 @@ function createItem(text) {
 // add new item
 function addNewItem(event) {
 
-    if (input.value === '') {
+    let inputValue = input.value.trim();
+    if (inputValue === '') {
         alert('Bir iş yazınız');
     } else {
 
         // create item
-        createItem(input.value);
+        createItem(inputValue);
 
         // save to LS
-        setItemToLS(input.value);
+        setItemToLS(inputValue);
 
         // clear input
         input.value = '';
